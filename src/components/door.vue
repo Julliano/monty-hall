@@ -2,12 +2,12 @@
 
 <template>
     <div class="door-area">
-        <div class="door-frame">
+        <div class="door-frame" :class="{ selected: selected && !open }">
             <gift v-if="hasGift && open"></gift>
         </div>    
-        <div class="door">
-            <div class="number"> {{ number }}</div>
-            <div class="knob"></div>
+        <div class="door" :class="{ open }" @click="selected = !selected">
+            <div class="number" :class="{ selected }"> {{ number }}</div>
+            <div class="knob" @click.stop="open = true;" :class="{ selected }"></div>
         </div>
     </div>    
 </template>
@@ -37,6 +37,7 @@
 <style lang="scss">
   :root {
     --door-border: 5px solid brown;
+    --selected-border: 5px solid yellow;
     .door-area {
       position: relative;
       width: 200px;
@@ -55,7 +56,12 @@
         border-right: var(--door-border);
         display: flex;
         justify-content: center;
-        align-items: center;
+        align-items: flex-end;
+        &.door-frame.selected {
+          border-left: var(--selected-border);
+          border-top: var(--selected-border);
+          border-right: var(--selected-border);
+        }
       }
     }
     .door {
@@ -68,6 +74,18 @@
       flex-direction: column;
       align-items: center;
       padding: 20px;
+      &.open {
+        background-color: #0007;
+        .knob {
+          display: none;
+        }
+        .number {
+          display: none;
+        }
+      }
+      .number.selected {
+        color: yellow;
+      }
       .knob {
         height: 20px;
         width: 20px;
@@ -75,6 +93,9 @@
         background-color: brown;
         align-self: flex-start;
         margin-top: 60px;
+        &.selected {
+          background-color: yellow;
+        }
       }
     }
   }
