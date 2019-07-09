@@ -1,4 +1,6 @@
 # monty-hall
+    Project based on Monty Hall problem, read more at:
+    https://en.wikipedia.org/wiki/Monty_Hall_problem
 
 ## Project setup
 ```
